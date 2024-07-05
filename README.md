@@ -138,6 +138,15 @@ The VPD scanner has two manufacturing tasks; building the scanner and building i
 
 **Step 1: Assembling the Ender 3s**
 
+The Ender 3s comes partially assembled from the factory. There are several high-quality YouTube tutorials already made outlining exactly how to assemble an Ender 3. Here's a well made one from [3D Printing Canada](https://www.youtube.com/watch?v=dQ0q9zLygTY) (https://www.youtube.com/watch?v=dQ0q9zLygTY).
+
+While most of the build proceeds as normal, there are a few steps you should <ins>not</ins> do:
+
+- Do not mount the extruder stepper motor on the bracket designed for it. However, you should still wire it as if you were going to mount it. The extruder stepper motor will be used later on to control the syringe.
+- Similarly, do not install the spring-loaded extruder gear assembly. This is not needed for the VPD.
+- 
+
+
 **Step 2: 3D Print Required Components** 
 
 **Step 3: Install 3D Printed Components**
@@ -160,7 +169,13 @@ The enclosure is predominantly built from laser-cut acrylic panels. A  fan mount
 
 **Step 5: Blower Fan Installation**
 
-**Step 6:
+**Step 6: LED Light Installation**
+
+**Step 7: Power Switch Installation**
+
+**Step 8: Power Supply Mounting and Wiring**
+
+**Step 9: Teflon Base Installation**
 
 ## Scripting
 
