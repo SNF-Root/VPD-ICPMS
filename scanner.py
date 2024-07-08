@@ -329,3 +329,16 @@ class VPDScanner():
         self.master_command_list.append(f"G1 E0 F{self.EXTRUSION_MOTOR_FEEDRATE} ; extrude droplet")
         self.master_command_list.append(f"G1 X{length} F{self.wipe_speed} ; wipe in a straight line")
         self.master_command_list.append("G90 ; set absolute coordinates")
+
+    def insert_gcode(self, gcode_command):
+        """
+        Insert a custom G-CODE command into the master_command_list.
+
+        Initialization:
+            Tip can start anywhere.
+        
+        Termination:
+            Tip finishes wherever you specify, depending on the G-CODE command.
+        """
+
+        self.master_command_list.append(gcode_command)
