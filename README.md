@@ -1,13 +1,13 @@
-# Low-Cost Vapor Phase Decomposition (VPD) Scanner for Trace Metal Detection on Surface of Wafers
+# Low-Cost, DIY Vapor Phase Decomposition (VPD) Scanner for Trace Metal Detection on Surface of Wafers
 
 *Insert GIF of the scanner operating*
 
 ## Introduction
-Vapor phase decomposition (VPD) is a common technique used in the semiconductor industry to collect trace contaiminates on the surface of wafers into a droplet. When paired with an ICP-MS (a common instrument for measuring low concentrations of chemicals in liquid solutions), a 'VPD-ICP-MS' enables users to quantify the chemical impurities on the surface of their wafers.
+Vapor phase decomposition (VPD) is a common technique used in the semiconductor industry to collect trace contaiminates on the surface of wafers. When paired with an ICP-MS (a common instrument for measuring low concentrations of chemicals in liquid solutions), a 'VPD-ICP-MS' enables users to quantify the chemical impurities on the surface of wafers.
 
-However, no low-cost VPD systems exist for academic institutions interested in characterizing their own wafers' contaiminatints. This project provides the end-to-end manufcturing, programming, installation, and standard operating procedure for anyone to create their own VPD scanner.
+However, no low-cost, research-oriented VPD systems exist for academic institutions. This project provides the end-to-end manufcturing, programming, installation, and standard operating procedure for anyone to create their own VPD scanner.
 
-This project was created and now maintained at the Stanford Nanofabrication Facility (SNF) by Alex Denton, Trevor, and Thomas Rimer. All ICP-MS analysis was performed by Karrie Weaver and Kathleen Kathleen Akbar at the SIGMA lab.
+This project was created and now maintained at the Stanford Nanofabrication Facility (SNF) by Alex Denton, Trevor, and Thomas Rimer. All ICP-MS analysis was performed by Karrie Weaver and Kathleen Akbar at the SIGMA lab.
 
 *Add small SNF and SIGMA logo*
 
@@ -15,16 +15,18 @@ This project was created and now maintained at the Stanford Nanofabrication Faci
 
 *Insert image of the scanner sitting inside its box in a fume hood*
 
-The VPD scanner is based on a modified Ender 3 3D printer. Using the provided STLs, Python scripts, and ordering sheet outlined below, the entire VPD scanner can be built and installed in just ~6 hours of work for $4,000. In addition to the written instructions on this doc, there are also accompanying video tutorials going in depth on certain parts of the project. 
+The VPD scanner is based on a modified Ender 3 3D printer. Using the provided instructions outlined below, the entire VPD scanner can be built and installed in <10 hours of work for $4,000.
 
 **Analysis Note**: This project assumes you have access to an ICP-MS or similarly sensitive tool to analyze the samples. The VPD scanner itself has no capacity to analyze the droplets it collects. Some work arounds are noted below if an ICP-MS is not availible. 
 
 **Safety Note**: This project relies on hydrofluoric acid (HF) for the collection solution. HF is an extremely toxic chemical; if you need to google why, this project is *not* for you.
 
-All aspects of the manufacturing process are designed to be as accessble as possible. Below are a list of tools you're assumed to already have. There are workarounds to every tool:
+**Setup Note**: This machine produces small amounts of HF vapor and should therefore be operated inside a fume hood. The minimum fume hood space requires is 20" wide, 25" deep, and 42" tall.
 
-- 3D printer
-- Laser cutter 
+All aspects of the manufacturing process are designed to be as accessble as possible. Below are a list of tools you're assumed to already have. There are workarounds to each tool if it isn't availible:
+
+- 3D printer (minimum bed size: 7.5" x 7.5" x 2")
+- Laser cutter (minimum bed size: 24" x 20")
 - Phillips screw driver
 - Metric allen keys
 - Soldering iron
@@ -33,17 +35,19 @@ All aspects of the manufacturing process are designed to be as accessble as poss
 
 ## Operating Principle
 
-The scanner is based on a 3D printer with its hot-end replaced with a motor-controlled syringe. To scan a wafer, the syringe first aspirates ~200 uL of an HF/H2O2/Water solution. Then it lowers to just 200 um above the center of the wafer and dispenses the solution, forming a droplet on the surface of the wafer that still remains attached to the tip of the syringe. Over the course of 5-15 minutes (depending on wafer size), the scanner slowly moves the syringe head in a series of expanding concentric rings, dragging the droplet across the entire surface of the wafer. The HF in the scan solution attacks the ~2nm native oxide on the wafer's surface, dissolving any contaminants on the surface or within the first few layers of SiO2. Finally, the scanner sucks up the droplet from the surface and dispenses it in a collection cuvette, for analysis by an ICP-MS.
+The scanner is based on a modified 3D printer; instead of a hot-end to extrude plastic, it has a motor-controlled syringe. To scan a wafer, the syringe first aspirates ~200 uL of an HF/H2O2/Water solution. Then it lowers to the surface of the wafer and dispenses the solution, forming a droplet on the surface of the wafer. Crucially, the droplet remains connected to the tip of the syringe. Over the course of 5-15 minutes (depending on wafer size), the scanner slowly moves the syringe head in a series of expanding concentric rings, dragging the droplet across the entire surface of the wafer. The HF in the scan solution attacks the ~2nm native oxide on the wafer's surface, dissolving any contaminants on the surface and within the first few layers of SiO2. Finally, the scanner sucks up the droplet from the surface and dispenses it in a collection cuvette, for analysis by an ICP-MS.
 
 This droplet-dragging technique is similar to what's found in commercial VPD machines. However, there are a few differences worth noting:
 
-**Full Automation:** A human user is needed for setup and sample transfer for the VPD outlined in this repo. Most commercial VPDs have fully automated, load-lock-compatible setups which allow seamless integration into their production lines.
+**Full Automation:** A human user is needed for setup and sample transfer for this DIY VPD. Most commercial VPDs have fully automated setups which allow for seamless integration into production lines.
 
-**Vapor Etching:** As the name "Vapor Phase Decomposition" might suggest, commerical VPDs use an HF vapor to etch the entire surface of the wafer at once, before the droplet scan commences. This VPD scanner relies on HF within the scan solution to etch and collect the contaminants at the same time, avoiding the vapor etching step.
+**Vapor Etching:** As the name "Vapor Phase Decomposition" might suggest, commerical VPDs use an HF vapor to etch the entire surface of the wafer at once, before the droplet scan commences. This VPD scanner relies on aqueous HF within the scan solution to etch and collect the contaminants at the same time, avoiding the vapor etching step.
 
 **Speed:** While our machine takes ~20+ minutes to process a wafer, a commercial machine can often complete a scan in <60 seconds.
 
-## How to Make Your Own
+## DIY VPD Instructions
+
+The rest of this document is dedicated to the detailed instructions for fabricating, testing, and using your own DIY VPD.
 
 1. [Procurement](#procurement)
 2. [Manufacturing and Assembly](#manufacturing-and-assembly)
@@ -58,10 +62,9 @@ This droplet-dragging technique is similar to what's found in commercial VPD mac
 
 Below are three tables, each with a set of components. The "Scanner Components" are used to build the scanner itself. The "Enclosure Components" are used to build the enclosure around the scanner. The "Experimentation Supplies" are the consumables needed to actually run experiments. All prices are approximate, as of July 2024.
 
-All components in the first two table can be purchased from  McMaster Carr or Amazon. However, the strict purity requirements for the sample collection means many of the experimentation suppliers must be ordered directly from suppliers.
+All components in the first two tables can be purchased from  McMaster Carr or Amazon. However, the strict purity requirements for the sample collection means many of the experimentation suppliers must be ordered directly from suppliers.
 
 Note that each section has dropdowns that go into further detail on different items, including alternative recommendations.
-
 
 ### Scanner Components
 | Item | Price per Unit | Units | Subcost | Link | Use
@@ -77,15 +80,14 @@ Scanner Components Subtotal: **~$200**
   ### Ender 3 S1 3D Printer
   The Ender 3 is a super popular, low cost, easily modifiable 3D printer chosen for its large support community and easily accessible components.
 
-  **Ordering notes**: Feel free to purchase the Ender 3 from any website you see fit. Note that there are different versions of the Ender 3 (Ender 3s, Ender 3 pro, etc...) Make sure you purchase the Ender 3s to ensure the syringe head 3D prints fit the gantry. If you do order from a different supplier, make sure it comes with a MicroSD card or you order one seperately.
+  **Ordering notes**: Feel free to purchase the Ender 3 from any website. Note that there are different versions of the Ender 3 (Ender 3s, Ender 3 pro, etc...) Make sure you purchase the Ender 3 to ensure the syringe head 3D prints fit the gantry. If you do order from a different supplier, make sure it comes with a MicroSD card (or you order a micro SD card seperately).
   
-  **Alternatives**: Using any other 3D printer will almost certainly mean a complete redesign of all mechanical components, including the clean enclosure (unless the alternative printer is smaller). Additionally, the scan programs would no longer work, meaning you'd need to generate your own (which should be easy using the program builder script included in this repo, but is still worth noting). If there were one component in this build we'd suggest not replacing, it's the Ender 3s printer. 
+  **Alternatives**: Using any other 3D printer will almost certainly mean a complete redesign of all mechanical components, including the clean enclosure (unless the alternative printer is smaller than the Ender 3). Additionally, the scan programs would no longer work, meaning you'd need to generate your own (which should be easy using the program builder script included in this repo, but is still an additional step). If there were one component in this build we'd suggest not replacing, it's the Ender 3 printer. 
 
   ### Filament
-  **Ordering notes**: Any brand of 3D printer filament will work just fine. Because the 3D prints will never come in contact with the scan solution, it does not matter what plastic you use. We recommend PLA for its ease of printing. 
+  **Ordering notes**: Any brand of 3D printer filament will work just fine. Because the 3D prints will never come in contact with the scan solution, it does not matter what plastic you use. We recommend PLA for its ease of printing. However, PolyMax filament from PolyMaker has repeatedly proven itself as the most durable filament based on our testing, so we think it's worth purchasing. 
   
-  **Alternatives**: If yo're feeling ambitious, some/all 3D printed components can be machined out of teflon. This will provide excellent chemical resistance and durability. Stanford actually has a version of the scanner with custom machined teflon components.
-
+  **Alternatives**: If yo're feeling ambitious, some/all 3D printed components can be machined out of teflon. This will provide excellent chemical resistance and durability. Stanford actually has a version of the scanner with custom machined teflon components. Finding a teflon machine shop, creating engineering drawings, and managing the manufacturing process is not discussied in this guide.
 </details>
 
 
@@ -112,7 +114,7 @@ Enclosure Components Subtotal: **~$950**
    
   ### Acrylic Plastic Sheets
 
-  **Ordering notes**: We recommend NOT purchasing the plastic through McMaster if possible. Instead, find a local plastic shop or hardware store that sells acrylic sheets. We purchased all our acrylic from TAP plastics; if you're in the San Francisco Bay Area, this is by far the best place to pick up material. Local shops will also cut stocks down to a size convenient for you; for example, we had TAP cut all our acrylic down to 32"x20" sheets to fit our laser cutter. 
+  **Ordering notes**: Minimize sheet size is 23.5" x 19.5." We recommend NOT purchasing the plastic through McMaster. Instead, find a local plastic shop or hardware store that sells acrylic sheets. We purchased all our acrylic from TAP plastics; if you're in the San Francisco Bay Area, this is by far the best place to pick up material. Local shops will also cut stocks down to a size convenient for you; for example, we had TAP cut all our acrylic down to 32"x20" sheets to fit our laser cutter. 
   
   **Alternatives**: As the most expensive building material, it's tempting to find alternatives. Theoretically, any plastic enclosure that can fit the 3D printer inside and can have holes cut in it for ventilation would work. However, the clear material makes viewing the operation of the machine much easier. 
 
@@ -124,20 +126,21 @@ Enclosure Components Subtotal: **~$950**
   
   A ULPA filter was selected over a HEPA filter for its increased filtering power. We recommend using ULPA filters to lower the chance of airborne contaimination. 
 
+  The ULPA filter linked in the table is very large and should last for years. Based your spare ordering on that length scale (Stanford did not purchase any spare filters).
+
   **Alternatives**: If you have spare, clean ULPA filters availible from another source, feel free to use them. Just note that you will need to change both the hole size in the top of the container and fan shround to couple the blower air into the filter. Also make sure the filter is not too restrictive to air flow.
 
   ### Acrylic Cement
 
   Acrylic cement produces bad fumes and can be difficult to use. However, when done properly, it forms an invisible and airtight bond. 
 
-  **Ordering Notes**: We suggest purchasing your acrylic cement from a local supplier if you can (acrylic cement is fairly toxic, so shipping can sometimes be an issue). If you do buy in person, make sure you also purchase an applicator bottle and needle (the Amazon listing has it included).
+  **Ordering Notes**: We suggest purchasing your acrylic cement from a local supplier; acrylic cement is fairly toxic, so shipping can sometimes be an issue. If you do buy in person, make sure you also purchase an applicator bottle and needle (the Amazon listing has both included).
 
-  **Alternatives**: You can use epoxy instead of acrylic cement if fumes or manufacturing difficulty are a concern. However, epoxy will likely get all over the enclosure and will probably not look very good. 
+  **Alternatives**: You can use epoxy instead of acrylic cement if fumes or manufacturing difficulty are a concern. However, epoxy will likely get all over the enclosure and may not look good. 
 
   ### Epoxy Resin
 
-  **Ordering Notes**: Brand or size of epoxy resin does not matter; so long as it's a general purpose epoxy designed to bond metal and plastic 
-  it will work fine. 
+  **Ordering Notes**: Brand or size of epoxy resin does not matter; it will work so long as it's a general purpose epoxy designed to bond metal and plastic.
 
   **Alternatives**: Super glue is the best alternative, though it will form a less durable bond than epoxy. Avoid hot glue.
 
@@ -155,12 +158,11 @@ Enclosure Components Subtotal: **~$950**
 
   ### LED Lights
 
-  While the LED lights are not necessary, they improve visibility of the VPD scanner while working with it, and can also act as a clear indicator whether the tool is on or off. 
-
+  While the LED lights are not necessary, they improve visibility of the VPD scanner.
 
   **Ordering Notes**: Any LED light strip with the same voltage as the power supply will work fine.
 
-  **Alternatives**: Any lighting (bulb, lamp, etc...) that operates on either 120v or the power supply voltage will work. When ins
+  **Alternatives**: Any lighting (bulb, lamp, etc...) that operates on either 120v or the power supply voltage will work.
 
 </details>
 
@@ -184,15 +186,14 @@ Experimentation Supplies Subtotal: **~$1,500**
 </details>
 
 ## Manufacturing and Assembly
+The VPD scanner has two sub assmblies; the scanner and the enclosure. Each can be built independently of the other, making it convienent to split up amongst multiple people.
 
-The VPD scanner has two parts; assembling the scanner and building its enclosure. Each can be made independently of the other, making it convienent to split up amongst multiple people or parallelize.
+There are XX 3D prints requried for this project. To minimize the amount of time spent waiting for 3D prints to finish, we recommend printing parts as soon you begin on the project.
 
-There are XX 3D prints requried for this project. To minimize the amount of time spent waiting for 3D prints to finish, we recommend printing parts (regardless of what printer you use) as soon you begin on the project.
+Tehcnically, you can 3D print all components on the Ender 3 printer purchased for the scanner. This is recommended only if you have limited access to other printers. If you decide to 3D print the components on the Ender 3, you should first fully assemble the 3D printer following the video in Step 1.1 (not skipping any steps). Then, print all components (as outlined below) before continuing on the project. Know that once you've modified the printer into the scanner, it will take around an hour to uninstall the VPD parts and restore the Ender to a print-worthy state. 
 
-
-Tehcnically, you can 3D print all components on the Ender 3S printer purchased for the scanner. This is recommended only if you have limited access to other printers. If you decide to 3D print the components on the Ender 3S, you should first fully assemble the 3D printer following the video in Step 1.1 (not skipping any steps). Then, print all components (as outlined below) before continuing on the project. Know that once modifications begin, it will take at least an hour to uninstall the syringe head and reinstall the print head for additional prints.
 <details>
-  <summary> Click here for a complete list of required 3D printed parts, their associated quantities, and recommended print settings</summary>
+  <summary> Click here for a complete list of required 3D printed parts, their associated quantities, and recommended print settings/orientations</summary>
    
   TODO: Add the complete list of STL files and how many need to be made.
 
@@ -208,7 +209,7 @@ The Ender 3s comes partially assembled from the factory. There are several high-
 
 While most of the build proceeds as normal, there are a few steps you should <ins>not</ins> do:
 
-- Do not mount the extruder stepper motor on the bracket designed for it. However, you should still wire it as if you were going to mount it. The extruder stepper motor will be used later on to control the syringe.
+- Do not mount the extruder stepper motor on the bracket designed for it. However, you should still wire the stepper. The extruder stepper motor will be used later on to control the syringe.
 - Similarly, do not install the spring-loaded extruder gear assembly. This is not needed for the VPD.
 - Do not mount or screw in the bed leveling adjustment dials. These will be installed later.
 - Do not binder-clip the Ender-branded build surface onto the print bed. Parts will mount directly onto the print bed later, so this build surface is not needed.
@@ -217,28 +218,25 @@ Save all components (and spare parts) that you do not install. You will need som
 
 #### Step 1.2: Print and Install Parts For Wafer Holder
 
-There are seven 3D printed compoentns required for the wafer holder:
+There are four 3D printed compoentns required for the wafer holder:
 
-- 001_Wafer_Holder_Body_A
-- 002_Wafer_Holder_Body_B
-- 003_Wafer_Holder_Body_C
-- 004_Wafer_Holder_Body_D
-- 005_Wafer_Holder_2_in_Chuck
-- 006_Wafer_Holder_4_in_Chuck
-- 007_Wafer_Holder_6_in_Chuck
+- 001_Wafer_Holder_Base
+- 002_Wafer_Holder_2_inch_Chuck
+- 003_Wafer_Holder_4_inch_Chuck
+- 004_Wafer_Holder_6_inch_Chuck
 
 <details>
   <summary> Click here for a details about 3D printing orientation and settings
   <br></br>
   </summary>
    
-  TODO: Include pictures of recommended print orientation and print settings for the seven components
+  TODO: Include pictures of recommended print orientation and print settings for the  components. This should be a copy from the complete 3D print list above.
 
 </details>
 
-Wafer Holder Body A-D are four pieces that form the Wafer Holder Body. Puzzle-piece the components together together and place them on the print bed. Slide the included bed-leveling screws through the four screw holes in each corner of the Wafer Holder Body, making sure it also goes through the metal print bed. At each corner, add a bed leveling spring onto the screw before twisting on a large bed leveling dial (included with the Ender). Twist on the bed leveling dial until there are a few phillips threads visible sticking out past the dial. 
+Place 001_Wafer_Holder_Base on the print bed, alligning the the holes in each corner with the screws holes in the aluminum bed. The two cylindrical cavities should face the front of the printer. Slide the included bed-leveling screws through the four screw holes in each corner of the Wafer Holder Body, making sure it also goes through the metal print bed. Underneath each corner, slide a bed leveling spring onto the screw stick out. Then twist on a large bed leveling dial (included with the Ender). Tighten until there are a few phillips threads visible sticking out past the dial. Precise adjustmenet of the bed leveling dial will occur later.
 
-*Include image of the four 3D printed pieces on the print bed with screws through them. Include side image of the dial on the phillips screw with spring in proper compression*
+*Include image of the 3D printed base on the print bed with screws through them. Include side image of the dial on the phillips screw with spring in proper compression*
 
 Each chuck is designed to fit into the center cavity. For testing and calibration, install the 6 inch chuck.
 
@@ -248,24 +246,24 @@ Each chuck is designed to fit into the center cavity. For testing and calibratio
 
 There are three 3D printed components required for the syringe head:
 
-- 00X_Syringe_Holder_Body
-- 00X_Syringe_Holder_Rack
-- 00X_Syringe_Holder_Pinion 
+- 005_Syringe_Holder_Body
+- 006_Syringe_Holder_Rack
+- 007_Syringe_Holder_Pinion 
 
 <details>
   <summary> Click here for a details about 3D printing orientation and settings
   <br></br>
   </summary>
    
-  TODO: Include pictures of recommended print orientation and print settings for the three components
+  TODO: Include pictures of recommended print orientation and print settings for the  components. This should be a copy from the complete 3D print list above.
 
 </details>
 
-First, use three M3 screws included with the hot end to mount the Syringe Holder Body onto the gantry, as pictured below.
+First, use three XX mm long MX screws included with the hot end to mount the Syringe Holder Body onto the gantry, as pictured below.
 
 *Include image of the syringe holder body mounted on the gantry*
 
-Next, use four M3 screws included with the extruder stepper motor to mount the extruder stepper motor onto the backside of the syringe holder body, as pictured below. Make sure the stepper motor cable leaves in the direction away from the LCD panel. 
+Next, use XXX M3 screws included with the extruder stepper motor to mount the extruder stepper motor onto the backside of the syringe holder body, as pictured below. Make sure the stepper motor cable points in the direction away from the LCD panel. 
 
 *Include image of the syringe holder body and stepper motor*
 
@@ -273,11 +271,11 @@ Press fit the 3D printed pinion on to the stepper motor shaft. It should fit snu
 
 *Show image of the pinion press fit onto the stepper shaft*
 
-Lastly, insert the two dovetails on the back of the Syringe Holder Rack into the dovetail slots on the top of the Syringe Holder Body. Slide the rack down until its teeth make contact with the pinion. Continue pushing the rack down, causing the pinion to interface with the rack and begin spinning. Push the rack all the way down until the small arm collides with the Sryinge Holder Body's ledge and prevents it from going further.
+Lastly, slide the rack into the syringe holder body. Insert the two dovetails on the back of the Syringe Holder Rack into the dovetail slots on the top of the Syringe Holder Body. Press the rack down until its teeth make contact with the pinion. Continue pushing the rack down, causing the pinion to interface with the rack and begin spinning. Push the rack all the way down until the small arm collides with the Sryinge Holder Body's ledge and prevents it from going further. There should be some friction/resistance to pressing the dovetails together, especially the first time they're connected. 
 
 *Show two images of the rack, one of it getting inserted into the top, and the other of it bottomed out.
 
-### Enclosure Manufacturing
+### 2 Enclosure Manufacturing
 
 *Insert CAD rendering of finished enclosure*
 
@@ -297,11 +295,25 @@ There are 8 pieces that must be cut from the acrylic side panels:
 - Front middle panel
 - Front bottom panel
 
-All DXFs for the panels are availible from 
+All DXFs for the panels are in the [XXX/XXX folder]().
 
-We would strongly suggest using a laser cutter to cut the acrylic side panels given it 
+We  strongly suggest using a laser cutter to cut the acrylic side panels given acrylic cement needs flush edges to form a proper bond. The layout of the DXFs depends on the bed size of your laser cutter. The Stanford Nanofab has a 32"x20" laser cutter which allowed us to cut the panels in the following layout:
+
+*Insert screenshot of the lasercutting layout*
+
+As mentioned in the drop down section under Enclosure Components, the largest panels are 23.5" x 19.5". Make sure your laser cutter bed is large enough to accomodate those panels.
+
+Do not cut panels out of the corner of your plastic; i.e. don't bump your cuts right up against the edge of your plastic sheet. The laser used to cut the plastic has a certain kerf which affects the final dimensions of the part by a few tenths of a mm. The enclsoure was designed to cancel out these errors, so long as all edges are affected the same amount. If some of the panel edges are laser cut and others are saw cut (from the factory/store), you may end up with gaps that the acrylic cement cannot bond.
+
+*Include image showing proper and improper arrangement of panels relative to plastic sheet*
 
 **Step 2: Acrylic Enclosure Welding**
+
+Acrylic weld is a super runny solvent that dissolves the two edges it comes into contact with, chemically bonding them together. When done properly, acrylic weld leaves strong and aesthetic bonds. When done improperly, acrylic weld fails to join the two edges and the joint breaks easily. 
+
+The most important step to take to get good acrylic weld joints is *making sure the two edges are flush.* Acrylic weld works through capillary action, when you apply a drop to the corner, it should spread across the seam thanks to capillary forces. This is only possible if the two edges are perfectly flat against each other. If there is a small gap (<0.5mm) the acrylic weld will not properly dissolve the two edges together and no bond will form. 
+
+Note that acrylic weld produces bad fumes that cause a bad headache; use it outdoors or in a well ventilated room. 
 
 **Step 3: Mounting Magnets**
 
@@ -396,6 +408,8 @@ The scanner uses the original 3D printer interface to run gcode files. To upload
 3) Transfer desired gcode files from the pregenerated, regenerated, or custom folder onto the sd card.
 4) Remove the sd card from your computer and plug it into the micro sd port on the front, bottom, left black controller box (underneath the bed).
 
+The GCODE routines are now loaded on the printer and ready to run.
+
 ## Calibration
 
 ## Standard Operation
@@ -404,7 +418,7 @@ The scanner uses the original 3D printer interface to run gcode files. To upload
 
 ### Contact
 
-Please reach out if you're thinking about building a scanner, we're excited to see these get into as many labs as possible! We ask you use the "Issues" tab to ask questions, this will allow other people thinking of building a VPD to see what is and isn't going well. 
+Please reach out if you're thinking about building a scanner, have questions about the build process, or have issues with your own DIY-VPD. We're excited to get these into as many labs as possible! We ask you use the "Issues" tab to ask questions (even if you don't have an issue). This will allow other people thinking of building a VPD to see who else is interested, what they're thinking, and issues they're having.
 
 ### License
 
