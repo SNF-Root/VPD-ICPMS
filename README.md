@@ -360,70 +360,94 @@ Note that acrylic weld produces bad fumes that cause a bad headache; use it outd
 
 *Download the GitHub repo to your computer to access and run the scripts*
 
-After fabricating the VPD scanner, you need to control it. The printer runs on GCODE, a human-readable, tool-control language where each line corrosponds to a movement (or modificatoin to a movement). There are three options for generating GCODE files, each with greater flexibility at the cost of greater complexity:
+After fabricating the VPD scanner, you need to control it. The printer runs on GCODE, a human-readable, tool-control language where each line corrosponds to motor movements (or modification to a movement). There are three options for generating GCODE files, each with greater flexibility at the cost of greater complexity:
 
-- **Pregenerated Routine (easiest) (recommended)**: In the 'pre-generated routines' folder are several GCODE files that can be directly uploaded and run on the scanner. They are specifically generated for the scanner described in this document. If you built your scanner following the instructions provided here, you can run the scanner entirely off of these commands. The pre-generate routines require no programming or terminal commands. 
-- **Regenerated Default Routine (more difficult)**: In the 'generate_default_routine' folder is a python script that will automatically generate a scan routine based a select number of parameters you input (like droplet volume, scan speed, syringe, etc...). A regenerated defualt routine involves a single terminal command.  
-- **Custom Routine (most difficult)**: If you would like to write your own custom scan routine, you can with the 'generate_custom_routine' script in the same folder. This will allow you to create a routine with any sort of movement, aspiration, or dispensing. A custom routine requires several (10+) lines of python and a terminal command.
+<details>
+  <summary> Click here for Pre-generated Routine instructions (easiest) (recommended): <br></br></summary>
 
-The GCODE routine needs to be uploaded to the printer after its generated. This is simply done through a micro SD card file transfer.
+  ### Pre-Generated Routines
 
-The three generation options as well as SD card file transfer are all explained in detail below.
+  Pre-generated routines are, as the name suggests, scan programs that have already been written and tested on the scanner. All testing, characterization, and normal operation of the VPD can be run from the pre-generated routines provided in this GitHub. The pre-generated routines require no programming or terminal commands.
 
-### Pregenerated Routines
+  Within the 'pregenerated_routines' folder are six scan routines for different sized wafers. The size in the name of routine is the size of the wafer being scanned:
 
-Within the 'pregenerated_routines' folder are six scan routines for different sized wafers. The size in the name of routine is the size of the wafer being scanned:
+  - 1_inch_wafer_scan_pre_generated.gcode
+  - 2_inch_wafer_scan_pre_generated.gcode
+  - 3_inch_wafer_scan_pre_generated.gcode
+  - 4_inch_wafer_scan_pre_generated.gcode
+  - 5_inch_wafer_scan_pre_generated.gcode
+  - 6_inch_wafer_scan_pre_generated.gcode
 
-- 1_inch_wafer_scan_pre_generated.gcode
-- 2_inch_wafer_scan_pre_generated.gcode
-- 3_inch_wafer_scan_pre_generated.gcode
-- 4_inch_wafer_scan_pre_generated.gcode
-- 5_inch_wafer_scan_pre_generated.gcode
-- 6_inch_wafer_scan_pre_generated.gcode
+  The pre-generated routines have the following parameters:
+  - Scan pattern: concentric starting in middle
+  - Droplet volume: 300 uL
+  - Scan speed: 175 mm/min
+  - Scan height: 200 um
+  - Droplet width: 5 mm
 
-The pre-generated routines have the following parameters:
-- Scan pattern: concentric starting in middle
-- Droplet volume: 300 uL
-- Scan speed: 175 mm/min
-- Scan height: 200 um
-- Droplet width: 5 mm
+  To use the pre-generated routines, just make sure you've downloaded the GitHub repo.
 
-Follow the the instructions in 'Uploading Routines to the Scanner' to send the pregenerated routines to the scanner. 
+  Follow the the instructions in 'Uploading Routines to the Scanner' to send the regenerated routine to the scanner. 
 
-### Regenerated Routine
+  **Only reason not to use pre-generated routine:** As mentioned above, we strongly recommend using the pre-generated scan routines, with the one exception of scanners built on any printer aside from the Ender 3; other 3D printers will have different physical travel limits which means using a default scan could crash the syringe into the print bed. If a different printer is being used, you'll need to create a Custom Routine.
 
-Within the 'regenerated_routines' folder is the python script 'regenerate_default_scan.py' which takes several input flags and generates a concentric scan based on their parameters.
+</details>
 
-To regenerate a routine based on your desired parameters, first navigate to the 'regenerated_routines' directory in terminal. For example...
+<details>
+  <summary> Click here for Re-Generated Routine instructions (more difficult): <br></br></summary>
 
-```console
-foo@bar: cd /Users/thomas-rimer/Desktop/DIY-VPD/regenerated_routines
-```
+  ### Regenerated Routines
 
-Next call the 'regenerate_default_scan.py' along with the six required flags, explained below:
+  Regenerated routines are scan programs that are generated by the user using the regenerate_scan.py Python script provided in the GitHub repo. After executing the script with the desired custom parameters, the script will produce a program file which can be uploaded to the scanner. 
 
-| Flag Name                | Details                   |
-|-------------------------|-----------------------------------------|
-| filename | **Description**: name of the GCODE file saved to disk <br> **Units**: string <br> **Range**: <256 characters, just letters, numbers, and underscores |
-| droplet_volume | **Description**: volume of the droplet used to scan the wafer <br> **Units**: mL <br> **Range**: anywhere between 0.001 and 1 |
-| wipe_speed | **Description**: scan speed of the syringe over the wafer <br> **Units**: mm/min <br> **Range**: anywhere between 0.001 and 10000 |
-| wipe_height | **Description**: height of the syringe above the wafer while scanning <br> **Units**: mm <br> **Range**: any value above 0 |
-| droplet_width | **Description**:  width of the droplet formed on the surface of the wafer <br> **Units**: mm <br> **Range**: any value above 0 <br> **NOTE**: you must physically measure this value with calipers. guess 5mm the first time you generate the script, then revise based on measurement. |
-| wafer_size | **Description**:  diameter of the wafer to be scanned <br> **Units**: mm <br> **Range**: anywhere between 1 and 150 |
+  To regenerate a routine based on your desired parameters, first ensure you've downloaded the GitHub repo. Navigate to the 'regenerated_routines' directory in terminal. For example...
 
-An example call might look like
+  ```console
+  foo@bar: cd /Users/thomas-rimer/Desktop/DIY-VPD/regenerated_routines
+  ```
 
-```console
-foo@bar: python3 regenerate_default_scan.py --filename=myCustomScan --droplet_volume=0.1 --wipe_speed=150 --wipe_height=0.3 --droplet_width=4.7 --wafer_size=150
-```
+  To ensure you're in the right directory, type
 
-After calling this in terminal, a GCODE file with the entered filename (i.e. 'myCustomScan.gcode') will be created in the 'regenerated_routines' directory. If there is already a GCODE file with the same name, it will be overwritten.
+  ```console
+  foo@bar: ls
+  ```
 
-Follow the the instructions in 'Uploading Routines to the Scanner' to send the regenerated routine to the scanner. 
+  which lists all files in your current directory. You should see 'regenerate_default_scan.py' as the only file to show up.
 
-### Custom Routine
+  Next call the 'regenerate_default_scan.py' along with the six required flags, explained below:
 
-Creating a custom routine requires knowledge about the machine and how GCODE works. For that reason, there is a seperate document outlining how to make a custom routine called 'CUSTOM_ROUTINE.MD' in the 'custom_routine' folder. 
+  | Flag Name                | Details                   |
+  |-------------------------|-----------------------------------------|
+  | filename | **Description**: name of the GCODE file saved to disk <br> **Units**: string <br> **Range**: <256 characters, just letters, numbers, and underscores |
+  | droplet_volume | **Description**: volume of the droplet used to scan the wafer <br> **Units**: mL <br> **Range**: anywhere between 0.001 and 1 |
+  | wipe_speed | **Description**: scan speed of the syringe over the wafer <br> **Units**: mm/min <br> **Range**: anywhere between 0.001 and 10000 |
+  | wipe_height | **Description**: height of the syringe above the wafer while scanning <br> **Units**: mm <br> **Range**: any value above 0 |
+  | droplet_width | **Description**:  width of the droplet formed on the surface of the wafer <br> **Units**: mm <br> **Range**: any value above 0 <br> **NOTE**: you must physically measure this value with calipers. guess 5mm the first time you generate the script, then revise based on measurement. |
+  | wafer_size | **Description**:  diameter of the wafer to be scanned <br> **Units**: mm <br> **Range**: anywhere between 1 and 150 |
+
+  An example call might look like
+
+  ```console
+  foo@bar: python3 regenerate_default_scan.py --filename=myCustomScan --droplet_volume=0.1 --wipe_speed=150 --wipe_height=0.3 --droplet_width=4.7 --wafer_size=150
+  ```
+
+  After calling this in terminal, a GCODE file with the entered filename (i.e. 'myCustomScan.gcode') will be created in the 'regenerated_routines' directory. If there is already a GCODE file with the same name, it will be overwritten.
+
+  Follow the the instructions in 'Uploading Routines to the Scanner' to send the regenerated routine to the scanner. 
+
+</details>
+
+<details>
+  <summary> Click here for Custom Routine instructions (most difficult): <br></br></summary>
+
+  ### Custom Routine
+
+  If you would like to write your own custom scan routine, you can with the 'generate_custom_routine' script in the same folder. This will allow you to create a routine with any sort of movement, aspiration, or dispensing. A custom routine requires several (10+) lines of python and a terminal command.
+
+  *TODO: Write detailed instructions for how to generate Custom Routine*
+  
+
+</details>
 
 ### Uploading Routines to the Scanner
 
