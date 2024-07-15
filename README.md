@@ -3,11 +3,9 @@
 *Insert GIF of the scanner operating*
 
 ## Introduction
-Vapor phase decomposition (VPD) is a common technique used in the semiconductor industry to collect trace contaiminates on the surface of wafers. When paired with an ICP-MS (a common instrument for measuring low concentrations of chemicals in liquid solutions), a 'VPD-ICP-MS' enables users to quantify the chemical impurities on the surface of wafers.
+Vapor phase decomposition (VPD) is a process used in the semiconductor industry to quantify trace metal contaminants on the surface of wafers. While VPD is most commonly used by commerical fabs to verify the purity of wafers shipped from suppliers, the goal of this project was to measure cross-contamination between different atomic layer deposition (ALD) jobs at an academic instution. This GitHub repo provides the end-to-end instructions to manufacture, program, and install an DIY VPD capable of XXX atoms/CM^2 measurements for academic cleanrooms. 
 
-However, no low-cost, research-oriented VPD systems exist for academic institutions. This project provides the end-to-end manufcturing, programming, installation, and standard operating procedure for anyone to create their own VPD scanner.
-
-This project was created and now maintained at the Stanford Nanofabrication Facility (SNF) by Alex Denton, Trevor, and Thomas Rimer. All ICP-MS analysis was performed by Karrie Weaver and Kathleen Akbar at the SIGMA lab.
+This project was created by Alex Denton, Trevor, and Thomas Rimer at the [Stanford Nanofabrication Facility](https://snf.stanford.edu/). All ICP-MS analysis was performed by Karrie Weaver and Kathleen Akbar at the [SIGMA lab](https://sigmalab.stanford.edu/).
 
 *Add small SNF and SIGMA logo*
 
@@ -15,48 +13,75 @@ This project was created and now maintained at the Stanford Nanofabrication Faci
 
 *Insert image of the scanner sitting inside its box in a fume hood*
 
-The VPD scanner is based on a modified Ender 3 3D printer. Using the provided instructions outlined below, the entire VPD scanner can be built and installed in <10 hours of work for $4,000.
+VPD (vapor phase decomposition) is a technique to collect metal and chemical contamininats on the surface of a wafer into a single, liquid droplet. The details of this collection process are explained in the "Operating Principles Section" right below. Crucially, VPD *does not* involve the measurement or quantification of chemicals; it's simply a technique (among many) to collect them. That's where ICP-MS comes in...
 
-**Analysis Note**: This project assumes you have access to an ICP-MS or similarly sensitive tool to analyze the samples. The VPD scanner itself has no capacity to analyze the droplets it collects. Some work arounds are noted below if an ICP-MS is not availible. 
+ICP-MS stands for "Inductively Coupled Plasma Mass Spectroscopy." It's one of the most sensitive techniques for measuring the conentration of metals (among other chemicals) in liquid solutions. Check out [this video](https://www.youtube.com/watch?v=tP5ZKUTWiuQ) from Agilent (an ICP-MS tool manufacturer) to learn about the basic operating principles of an ICP-MS. In summary, the liquid sample is aerosolized before getting ionized inside a plasma. Metals in the solution are then accelerated down a sampling coloumn where they're seperated out by their charge/mass ratio and then measured. 
 
-**Safety Note**: This project relies on hydrofluoric acid (HF) for the collection solution. HF is an extremely toxic chemical; if you need to google why, this project is *not* for you.
+When VPD and ICP-MS are combined, it's called VPD-ICP-MS. Note that VPD doesn't necessarily need to use ICP-MS for analysis; alternatives like Atomic Absorption Spectroscopy (AAS) are also common. Similarly, VPD is not the only way to collect samples for ICP-MS; anything from blood to seawater to colloidal space dust can be measured in an ICP-MS.
 
-**Setup Note**: This machine produces small amounts of HF vapor and should therefore be operated inside a fume hood. The minimum fume hood space requires is 20" wide, 25" deep, and 42" tall.
+To summarize, VPD collects contaminants on the surface of a wafer into a small liquid droplet. That droplet is then transferred into an off-the-shelf ICP-MS which measures and quantifies the concentrations of contaminants.
 
-All aspects of the manufacturing process are designed to be as accessble as possible. Below are a list of tools you're assumed to already have. There are workarounds to each tool if it isn't availible:
+Using the provided instructions outlined below, the entire scanner and its enclosure can be built and installed in <XXX hours for $XX,000. 
+
+Detailed performance information is availible in the [Performance](#performance) section.
+
+## Operating Principles
+
+The VPD scanner is based on a modified 3D printer; instead of a hot-end to extrude plastic, it has a motor-controlled syringe. To scan a wafer, the syringe first aspirates ~200 uL of an HF/H2O2/Water solution. Then it lowers to the surface of the wafer and dispenses the solution, forming a droplet on the surface of the wafer. Crucially, the droplet remains connected to the tip of the syringe. Over the course of 5-15 minutes (depending on wafer size), the scanner slowly moves the syringe head in a series of expanding concentric rings, dragging the droplet across the entire surface of the wafer. The HF in the scan solution attacks the ~2nm native oxide on the wafer's surface, dissolving any contaminants on the surface and within the first few layers of SiO2. Finally, the scanner sucks up the droplet from the surface and dispenses it in a collection cuvette, for analysis by an ICP-MS.
+
+This droplet-dragging technique is similar to what's found in commercial VPD machines. However, there are a few differences worth noting:
+
+**Vapor Etching:** As the name "Vapor Phase Decomposition" might suggest, commerical VPDs use an HF vapor to etch the entire surface of the wafer at once, before the droplet scan commences. This VPD scanner relies on aqueous HF within the scan solution to etch and collect the contaminants at the same time, avoiding the vapor etching step.
+
+**Full Automation:** A human user is needed for setup and sample transfer for this DIY VPD. Most commercial VPDs have fully automated setups which allow for seamless integration into production lines.
+
+**Speed:** While our machine takes ~20+ minutes to process a wafer, a commercial machine can often complete a scan in <60 seconds.
+
+## Imporant Notes
+
+**Analysis**: As hinted at above, this project assumes you have access to an ICP-MS or similarly sensitive tool to analyze the samples. The VPD scanner itself has no capacity to analyze the droplets it collects. More information about the ICP-MS analysis—along with alternatives—are detailed in the XXX section below. 
+
+**Safety**: This project relies on hydrofluoric acid (HF) for the collection solution. HF is an extremely toxic chemical; if you need to google why, this project is *not* for you.
+
+**Setup**: This machine produces small amounts of HF vapor and should therefore be operated inside a fume hood. The minimum fume hood space required is 20" wide, 25" deep, and 42" tall.
+
+## DIY VPD Instructions
+
+The rest of this document is dedicated to the detailed instructions for fabricating, testing, and using your own DIY VPD. 
+
+0. [Fabrication Overview](#step-0-fabrication-overview)
+1. [Procurement](#procurement)
+2. [Manufacturing and Assembly](#manufacturing-and-assembly)
+3. [Scripting](#scripting)
+4. [Characterization](#characterization)
+5. [Standard Operation](#tunning-your-first-test)
+6. [Misc](#mis)
+
+## Step 0: Fabrication Overview
+
+The fabrication, setup, and programming of the machine are as follows:
+1) First, all supplies need to be purchased. This is thoroughly explained in [Procurement](#procurement)
+2) Next, both parts of the VPD need to be built: the scanner (which scans the droplet) and the enclosure (which forms a clean environment around the scanner). Instructions are layed out in [Manufacturing and Assembly](#manufacturing-and-assembly)
+3) After building the VPD, it needs to be programmed. [Scripting](#scripting) explains the tradeoffs between pre-generated scripts and writing custom programs.
+4) With the VPD fully operational, it needs to be characterized. This involves "recovery tests" which directly measure how precise the VPD is and help diagnose hidden performance issues like contamination. The steps are outlined in [Characterization](#characterization).
+5) After characterization, the VPD is ready for users! [Standard Operation](#tunning-your-first-test) offers advice on installement, intermittent calibration, and other practical guidelines for transporting samples for analysis. 
+6) [Misc](#misc) contains credit and license information.
+
+All aspects of the manufacturing process are designed to be as accessible as possible. However, it's assumed that some basic tools are availible for fabrication. Below is a list of the required materials:
 
 - 3D printer (minimum bed size: 7.5" x 7.5" x 2")
 - Laser cutter (minimum bed size: 24" x 20")
-- Phillips screw driver
+- Phillips screwdriver
 - Metric allen keys
 - Soldering iron
 - Scissors
 - Tape
 
-## Operating Principle
+### Contact Us
 
-The scanner is based on a modified 3D printer; instead of a hot-end to extrude plastic, it has a motor-controlled syringe. To scan a wafer, the syringe first aspirates ~200 uL of an HF/H2O2/Water solution. Then it lowers to the surface of the wafer and dispenses the solution, forming a droplet on the surface of the wafer. Crucially, the droplet remains connected to the tip of the syringe. Over the course of 5-15 minutes (depending on wafer size), the scanner slowly moves the syringe head in a series of expanding concentric rings, dragging the droplet across the entire surface of the wafer. The HF in the scan solution attacks the ~2nm native oxide on the wafer's surface, dissolving any contaminants on the surface and within the first few layers of SiO2. Finally, the scanner sucks up the droplet from the surface and dispenses it in a collection cuvette, for analysis by an ICP-MS.
+If you've read this far, you're probably pretty interested in VPD. Please reach out if you're thinking about building a scanner, have questions about the build process, or have issues with your own DIY-VPD! We're excited to get these into as many labs as possible! We ask you use the "Issues" tab to ask questions (even if it's not strictly an "issue"). This will allow other people thinking of building a VPD to see who else is interested, what they're thinking, and issues they're having.
 
-This droplet-dragging technique is similar to what's found in commercial VPD machines. However, there are a few differences worth noting:
-
-**Full Automation:** A human user is needed for setup and sample transfer for this DIY VPD. Most commercial VPDs have fully automated setups which allow for seamless integration into production lines.
-
-**Vapor Etching:** As the name "Vapor Phase Decomposition" might suggest, commerical VPDs use an HF vapor to etch the entire surface of the wafer at once, before the droplet scan commences. This VPD scanner relies on aqueous HF within the scan solution to etch and collect the contaminants at the same time, avoiding the vapor etching step.
-
-**Speed:** While our machine takes ~20+ minutes to process a wafer, a commercial machine can often complete a scan in <60 seconds.
-
-## DIY VPD Instructions
-
-The rest of this document is dedicated to the detailed instructions for fabricating, testing, and using your own DIY VPD.
-
-1. [Procurement](#procurement)
-2. [Manufacturing and Assembly](#manufacturing-and-assembly)
-3. [Scripting](#scripting)
-4. [Calibration](#contact)
-5. [Standard Operation](#tunning-your-first-test)
-6. [Misc](#mis)
-
-## Procurement
+## Step 1: Procurement
 
 *Every good project starts with a McMasterr Carr order; the VPD scanner is no different.*
 
@@ -185,12 +210,12 @@ Experimentation Supplies Subtotal: **~$1,500**
 
 </details>
 
-## Manufacturing and Assembly
+## Step 2: Manufacturing and Assembly
 The VPD scanner has two sub assmblies; the scanner and the enclosure. Each can be built independently of the other, making it convienent to split up amongst multiple people.
 
 There are XX 3D prints requried for this project. To minimize the amount of time spent waiting for 3D prints to finish, we recommend printing parts as soon you begin on the project.
 
-Tehcnically, you can 3D print all components on the Ender 3 printer purchased for the scanner. This is recommended only if you have limited access to other printers. If you decide to 3D print the components on the Ender 3, you should first fully assemble the 3D printer following the video in Step 1.1 (not skipping any steps). Then, print all components (as outlined below) before continuing on the project. Know that once you've modified the printer into the scanner, it will take around an hour to uninstall the VPD parts and restore the Ender to a print-worthy state. 
+Tehcnically, you can 3D print all components on the Ender 3 printer purchased for the scanner. This is recommended only if you have limited access to other printers. If you decide to 3D print the components on the Ender 3, you should first fully assemble the 3D printer following the video in [Step 2.1](#step-2-1) (not skipping any steps). Then, print all components (as outlined below) before continuing on the project. Know that once you've modified the printer into the scanner, it will take around an hour to uninstall the VPD parts and restore the Ender to a print-worthy state. 
 
 <details>
   <summary> Click here for a complete list of required 3D printed parts, their associated quantities, and recommended print settings/orientations</summary>
@@ -199,11 +224,11 @@ Tehcnically, you can 3D print all components on the Ender 3 printer purchased fo
 
 </details>
 
-### 1 Scanner Manufacturing
+### 2.1 Scanner Manufacturing
 
 *Insert image of finished scanenr*
 
-#### Step 1.1: Assembling the Ender 3s
+#### Step 2.1.1: Assembling the Ender 3s
 
 The Ender 3s comes partially assembled from the factory. There are several high-quality YouTube tutorials already made outlining exactly how to assemble an Ender 3. Here's a well-made one from [3D Printing Canada](https://www.youtube.com/watch?v=dQ0q9zLygTY) (https://www.youtube.com/watch?v=dQ0q9zLygTY).
 
@@ -216,9 +241,9 @@ While most of the build proceeds as normal, there are a few steps you should <in
 
 Save all components (and spare parts) that you do not install. You will need some of these materials later.
 
-#### Step 1.2: Print and Install Parts For Wafer Holder
+#### Step 2.1.2: Print and Install Parts For Wafer Holder
 
-There are four 3D printed compoentns required for the wafer holder:
+There are four 3D printed components required for the wafer holder:
 
 - 001_Wafer_Holder_Base
 - 002_Wafer_Holder_2_inch_Chuck
@@ -242,7 +267,7 @@ Each chuck is designed to fit into the center cavity. For testing and calibratio
 
 *Include image of installed 6" chuck*
 
-#### Step Step 1.3: Print and Install Parts For Syringe Head
+#### Step Step 2.1.3: Print and Install Parts For Syringe Head
 
 There are three 3D printed components required for the syringe head:
 
@@ -275,7 +300,7 @@ Lastly, slide the rack into the syringe holder body. Insert the two dovetails on
 
 *Show two images of the rack, one of it getting inserted into the top, and the other of it bottomed out.
 
-### 2 Enclosure Manufacturing
+### 2.2 Enclosure Manufacturing
 
 *Insert CAD rendering of finished enclosure*
 
@@ -283,7 +308,7 @@ The enclosure is built from laser-cut acrylic panels. A fan mounted on top of a 
 
 The complete CAD assembly is availible in the CAD/enclsoure folder. All individual parts are also availible as STEPS and F3Ds.
 
-**Step 1: Cutting Acrylic Panels**
+**Step 2.2.1: Cutting Acrylic Panels**
 
 There are 8 pieces that must be cut from the acrylic side panels:
 - Left panel
@@ -307,7 +332,7 @@ Do not cut panels out of the corner of your plastic; i.e. don't bump your cuts r
 
 *Include image showing proper and improper arrangement of panels relative to plastic sheet*
 
-**Step 2: Acrylic Enclosure Welding**
+**Step 2.2.2: Acrylic Enclosure Welding**
 
 Acrylic weld is a super runny solvent that dissolves the two edges it comes into contact with, chemically bonding them together. When done properly, acrylic weld leaves strong and aesthetic bonds. When done improperly, acrylic weld fails to join the two edges and the joint breaks easily. 
 
@@ -315,23 +340,23 @@ The most important step to take to get good acrylic weld joints is *making sure 
 
 Note that acrylic weld produces bad fumes that cause a bad headache; use it outdoors or in a well ventilated room. 
 
-**Step 3: Mounting Magnets**
+**Step 2.3: Mounting Magnets**
 
-**Step 4: ULPA Filter Installation**
+**Step 2.4: ULPA Filter Installation**
 
-**Step 5: Blower Fan Installation**
+**Step 2.5: Blower Fan Installation**
 
-**Step 6: LED Light Installation**
+**Step 2.6: LED Light Installation**
 
-**Step 7: Power Switch Installation**
+**Step 2.7: Power Switch Installation**
 
-**Step 8: Power Supply Mounting and Wiring**
+**Step 2.8: Power Supply Mounting and Wiring**
 
-**Step 9: Teflon Base Installation**
+**Step 2.9: Teflon Base Installation**
 
-## Scripting
+## Step 3: Scripting
 
-### Introduction
+### Scription Overview
 
 *Download the GitHub repo to your computer to access and run the scripts*
 
@@ -406,19 +431,27 @@ The scanner uses the original 3D printer interface to run gcode files. To upload
 1) Plug the micro sd card into your computer using the provided micro sd to usb adapter.
 2) If it's your first time uploading a routine, delete all existing files on the sd card.
 3) Transfer desired gcode files from the pregenerated, regenerated, or custom folder onto the sd card.
-4) Remove the sd card from your computer and plug it into the micro sd port on the front, bottom, left black controller box (underneath the bed).
+4) Remove the sd card from your computer and plug it into the micro sd port on the front, bottom, left black controller box (underneath the scan bed).
 
-The GCODE routines are now loaded on the printer and ready to run.
+The GCODE routines are now loaded on the printer and ready to run. To execute one, turn the scanner on. After the initialization screen, use the scroll wheel to navigate to "Print from SD." Click the scroll wheel to select it, then select the desired routine.
 
 ## Calibration
 
+*TODO: Explain how to perform a leach test. Explain our results*
+
+*TODO: Explain how to perform a recovery test*
+
+*TODO: Explain our recovery results*
+
 ## Standard Operation
 
+*Information about installment in a fumehood*
+
+*How we process, store, and run tests with the SIGMA lab*
+
+*Connecting to NEMO*
+
 ## Misc
-
-### Contact
-
-Please reach out if you're thinking about building a scanner, have questions about the build process, or have issues with your own DIY-VPD. We're excited to get these into as many labs as possible! We ask you use the "Issues" tab to ask questions (even if you don't have an issue). This will allow other people thinking of building a VPD to see who else is interested, what they're thinking, and issues they're having.
 
 ### License
 
