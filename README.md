@@ -7,7 +7,7 @@ Vapor phase decomposition (VPD) is a process used in the semiconductor industry 
 
 This project was created by Alex Denton, Trevor, and Thomas Rimer at the [Stanford Nanofabrication Facility](https://snf.stanford.edu/). All ICP-MS analysis was performed by Karrie Weaver and Kathleen Akbar at the [SIGMA lab](https://sigmalab.stanford.edu/).
 
-*Add small SNF and SIGMA logo*
+<img src="Misc/README Resources/SNF_logo.png" alt="SNF Logo" width="100" style="padding-right: 10px;"/> <img src="Misc/README Resources/sigma_logo.png" alt="SIGMA Logo" width="100" style="padding-left: 10px;"/>
 
 ## Overview
 
@@ -215,6 +215,9 @@ Experimentation Supplies Subtotal: **~$1,500**
 </details>
 
 ## Step 2: Manufacturing and Assembly
+
+*Insert labeled rendering of the final assembly*
+
 The VPD scanner has two sub assmblies; the scanner and the enclosure. Each can be built independently of the other, making it convienent to split up amongst multiple people.
 
 There are XX 3D prints requried for this project. To minimize the amount of time spent waiting for 3D prints to finish, we recommend printing all the parts before beginning any other manufacturing and assembly. 
@@ -230,7 +233,7 @@ Tehcnically, you can 3D print all components on the Ender 3 printer purchased fo
 
 ### 2.1 Scanner Manufacturing
 
-*Insert image of finished scanenr*
+*Insert photograph of finished scanner*
 
 #### Step 2.1.1: Assembling the Ender 3s
 
@@ -238,6 +241,7 @@ The Ender 3s comes partially assembled from the factory. There are several high-
 
 While most of the build proceeds as normal, there are a few steps you should <ins>not</ins> do:
 
+- Do not install the spool holder.
 - Do not mount the extruder stepper motor on the bracket designed for it. However, you should still wire the stepper to the controller board. The extruder stepper motor will be used later on to control the syringe.
 - Similarly, do not install the spring-loaded extruder gear assembly. This is not needed for the VPD.
 - Do not mount or screw in the bed leveling adjustment dials. These will be installed later.
@@ -381,27 +385,27 @@ If desired, a custom logo can be engraved in any of the side panels for decorati
 
 **Step 2.2.2: Acrylic Enclosure Bonding**
 
-To bond the enclosure together, we recommend first doing a practice run with just tape. It's best to addemble the enclosure with two people (so someone can hold a side panel while the other person tapes it). 
+To bond the enclosure together, we recommend first doing a practice run with just tape. It's best to addemble the enclosure with two people (so someone can hold a side panel while the other person tapes it). Below are instructions paired with CAD renderings of the enclosure bonding process. Note that colors are for illistrative purposes.
 
 Begin by placing the base panel on a large, flat table. 
 
-*Insert image of the base*
+<img src="Misc/README Resources/Acrylic Enclosure Renders/base.png" alt="Base" width="300" style="padding-right: 20px;"/>
 
 Next, stand up the right panel on a long side of the base. The vents should be close to the base. The right panel should be flush with the side of the base, and each end of the right panel should line up with the front and back of the base. The rounded rectangular hole denotes the back of the enclosure. 
 
-*Insert image of the right panel standing up on the base*
+<img src="Misc/README Resources/Acrylic Enclosure Renders/base_right_1.png" alt="Base and Right Panel 1" width="300" style="padding-right: 20px;"/> <img src="Misc/README Resources/Acrylic Enclosure Renders/base_right_2.png" alt="Base and Right Panel 2" width="300" style="padding-right: 20px;"/>
 
 Next, stand up the back panel along the back side. The back panel should be flush with the back edge of the base, and the right end of the back panel should be flush against the inside of the right panel. The vents should be at the bottom. The left end of the back panel should not be flush against the left edge of the base (there is a 1/4" gap for the left panel to mount). Use small pieces of masking tape on the outside of the enclsoure to secure the right and back panels to the base, as well as to one another. After taping, the enclsoure should be able to stand on its own. 
 
-*Insert image of the right and back panels standing up on the base*
+<img src="Misc/README Resources/Acrylic Enclosure Renders/base_right_back_1.png" alt="Base, Right, and Back Panel 1" width="300" style="padding-right: 20px;"/> <img src="Misc/README Resources/Acrylic Enclosure Renders/base_right_back_2.png" alt="Base, Right, and Back Panel 2" width="300" style="padding-right: 20px;"/>
 
 Next, stand up the left panel along the remaining long side of the base. It should be in the same orientation as the right side panel, with the vents towards the bottom and the rounded rectangular port in the back. Tape the left side panel to the back and base.
 
-*Insert image of the right, back, and left panels standing up on the base*
+<img src="Misc/README Resources/Acrylic Enclosure Renders/base_right_back_left_1.png" alt="Base, Right, and Back Panel 1" width="300" style="padding-right: 20px;"/> <img src="Misc/README Resources/Acrylic Enclosure Renders/base_right_back_left_2.png" alt="Base, Right, and Back Panel 2" width="300" style="padding-right: 20px;"/>
 
 Finally, place the top panel on top of the top edges of the left, back, and right panels. If the previous steps were done correctly, all three edges should be level with one another. The small holes in the top panel should be in the back. Tape the top panel on to the left, right, and back panel.
 
-*Insert image of the enclsoure with all fixed sides and the top*
+<img src="Misc/README Resources/Acrylic Enclosure Renders/base_right_back_left_top_1.png" alt="Base, Right, and Back Panel 1" width="300" style="padding-right: 20px;"/> <img src="Misc/README Resources/Acrylic Enclosure Renders/base_right_back_left_top_2.png" alt="Base, Right, and Back Panel 2" width="300" style="padding-right: 20px;"/>
 
 To permanently bond the pieces, repeat the same taping process, but add epoxy to the edges at each step.
 

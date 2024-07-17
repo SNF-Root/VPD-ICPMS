@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_0" data-name="0" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: .7px;
+      }
+    </style>
+  </defs>
+  <g id="LWPOLYLINE">
+    <rect class="cls-1" x="-584" y="-746" width="1368" height="1692"/>
+  </g>
+</svg>
