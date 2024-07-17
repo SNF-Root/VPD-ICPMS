@@ -300,6 +300,10 @@ Lastly, slide the rack into the syringe holder body. Insert the two dovetails on
 
 *Show two images of the rack, one of it getting inserted into the top, and the other of it bottomed out.
 
+#### Step Step 2.1.3: Print and Install Fan Ducting
+
+*TODO Explain how to print and install fan ducting*
+
 ### 2.2 Enclosure Manufacturing
 
 *Insert CAD rendering of finished enclosure*
@@ -340,19 +344,43 @@ The most important step to take to get good acrylic weld joints is *making sure 
 
 Note that acrylic weld produces bad fumes that cause a bad headache; use it outdoors or in a well ventilated room. 
 
-**Step 2.3: Mounting Magnets**
+**Step 2.2.3: Mounting Magnets**
 
-**Step 2.4: ULPA Filter Installation**
+**Step 2.2.4: ULPA Filter Installation**
 
-**Step 2.5: Blower Fan Installation**
+**Step 2.2.5: Blower Fan Installation**
 
-**Step 2.6: LED Light Installation**
+**Step 2.2.6: LED Light Installation**
 
-**Step 2.7: Power Switch Installation**
+**Step 2.2.7: Power Switch Installation**
 
-**Step 2.8: Power Supply Mounting and Wiring**
+**Step 2.2.8: Power Supply Mounting and Wiring**
 
-**Step 2.9: Teflon Base Installation**
+**Step 2.2.9: Teflon Base Installation**
+
+### 2.3 Install Scanner Inside Enclsoure
+
+After both the scanner and enclosure have been built, they're ready to be put together!
+
+**Step 2.3.1: Place Enclosure Inside Fume Hood**
+
+The entire clean enclosure must be placed inside a fumehood with proper HF fume extraction to ensure the positively pressurized clean enclosure doesn't poison surrounding users. The minimum required fumehood space is 20" wide by 25" deep by 42" tall.
+
+**Step 2.3.2: Clean the Enclosure**
+
+Use Isopropyl alcohol and a Kimtech (or similar low-lint) wipe to clean all surfaces on the interior of the enclsoure. This prevents dust built up from the fabrication process from dislodging and contaminating the scanner later in its life.
+
+**Step 2.3.3: Clean the Scanner**
+
+For the same reasons as the enclosure, use Kimtech and IPA to wipe down all surfaces on the 3D printer. Particularly focus on the belts used to drive the two axes; these are often prone to shedding lots of particulate. Avoid using excessive IPA near electronics. 
+
+**Step 2.3.3: Place Scanner Inside Enclosure**
+
+Remove all magnetic front panels from the enclosure and place the scanner inside the enclsoure. The LCD panel on the scanner should face the the front opening (where all the magnetic front panels just were). Center the scanner in the middle of the enclosure (left-to-right and front-to-back). Verify the scanner is properly positioned by slowly moving the bed front to back. It should be able to travel its entire length without hitting the back of the enclsoure or passing outside the front (where the magnetic panels would be mounted).
+
+**Step 2.3.4: Plug in the Scanner**
+
+Pass the 3D printer's power supply through one of the rounded rectangular ports on the bottom back left and right side of the 
 
 ## Step 3: Scripting
 
@@ -451,15 +479,29 @@ After fabricating the VPD scanner, you need to control it. The printer runs on G
 
 ### Uploading Routines to the Scanner
 
-The scanner uses the original 3D printer interface to run gcode files. To upload a routine to the scanner
+The scanner uses the original 3D printer interface to run routines. Routines are saved in the file format GCODE. To upload a routine (i.e. GCODE file) to the scanner
+
 1) Plug the micro sd card into your computer using the provided micro sd to usb adapter.
-2) If it's your first time uploading a routine, delete all existing files on the sd card.
-3) Transfer desired gcode files from the pregenerated, regenerated, or custom folder onto the sd card.
-4) Remove the sd card from your computer and plug it into the micro sd port on the front, bottom, left black controller box (underneath the scan bed).
+2) If it's your first time uploading a routine, delete all existing files (if there are any) on the sd card.
+3) Transfer desired gcode files from the pregenerated, regenerated, or custom folder onto the sd card (depending on which route you took). For example, if you plan on using just pregenerated routines (recommended) on 4" and 6" wafers, just upload '4_inch_wafer_scan_pre_generated.gcode' and '6_inch_wafer_scan_pre_generated.gcode' to the SD card.
+4) Eject the sd card from your computer and plug it into the micro sd port on the front, bottom, left black controller box (underneath the scan bed).
 
-The GCODE routines are now loaded on the printer and ready to run. To execute one, turn the scanner on. After the initialization screen, use the scroll wheel to navigate to "Print from SD." Click the scroll wheel to select it, then select the desired routine.
+The GCODE routines are now loaded on the printer and ready to run.
 
-## Calibration
+### Running Routines
+
+To execute a routine that's been uploaded to the SD card:
+1) **Turn on the scanner** (i.e. 3D printer) using the red power switch on the right side of its frame.
+2) **Wait for the LCD to finish loading**. After a few loading screens the front LCD should show a home with some miscellanous information. This is all a remanant of the previous 3D printer operating system and is not relevant for the scanner. 
+3) **Pull up the action menu** by pressing into the selection knob. It should click when pressed.
+4) **Select "Print from SD"** by rotating the selection knob so the selection highlight is over "Print from SD." Press the knob again to select
+5) **Select the desired scan routine to run** from the list of routines saved to the SD card. Use the same rotate and press selection method from above.
+
+The scanner should begin the routine within a few seconds of selecting it.
+
+## Step 4: Characterization
+
+At this point, the scanner is ready to
 
 *TODO: Explain how to perform a leach test. Explain our results*
 
@@ -467,7 +509,7 @@ The GCODE routines are now loaded on the printer and ready to run. To execute on
 
 *TODO: Explain our recovery results*
 
-## Standard Operation
+## Step 5: Standard Operation
 
 *Information about installment in a fumehood*
 
@@ -475,7 +517,7 @@ The GCODE routines are now loaded on the printer and ready to run. To execute on
 
 *Connecting to NEMO*
 
-## Misc
+## Step 6: Misc
 
 ### License
 
