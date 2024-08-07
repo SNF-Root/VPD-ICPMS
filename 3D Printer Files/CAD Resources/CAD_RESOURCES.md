@@ -4,7 +4,7 @@ The "CAD Resources Folder" contains versions of all the 3D printer files in form
 
 ## .f3d
 
-All 3D printed parts for the VPD were designed in Fusion360, whose native file format is .f3d. If you have access to Fusion360, we recommend using the .f3d files. These files retain timeline information making small edits extremly easy.
+All 3D printed parts for the VPD were designed in Fusion360, whose native file format is .f3d. If you have access to Fusion360, we recommend using the .f3d files. These files retain timeline information making small edits extremely easy.
 
 ## .step
 

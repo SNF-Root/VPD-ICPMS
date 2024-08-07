@@ -15,7 +15,7 @@ This project was created by Alex Denton, Trevor, and Thomas Rimer at the [Stanfo
 
 VPD (vapor phase decomposition) is a technique to collect metal and chemical contamininats on the surface of a wafer into a liquid droplet. The details of this collection process are explained in the "Operating Principles Section" right below. Crucially, VPD *does not* involve the measurement or quantification of chemicals; it's simply a technique (among many) to collect them. That's where ICP-MS comes in...
 
-ICP-MS stands for "Inductively Coupled Plasma Mass Spectroscopy." It's one of the most sensitive techniques for measuring the conentration of metals and other chemicals in liquid solutions. Check out [this video](https://www.youtube.com/watch?v=tP5ZKUTWiuQ) from Agilent (an ICP-MS tool manufacturer) to learn about the basic operating principles of an ICP-MS. Briefly, the liquid sample is aerosolized before getting ionized by a plasma. Metals in the solution are then sorted and counted based on their charge/mass ratio. 
+ICP-MS stands for "Inductively Coupled Plasma Mass Spectroscopy." It's one of the most sensitive techniques for measuring the concentration of metals and other chemicals in liquid solutions. Check out [this video](https://www.youtube.com/watch?v=tP5ZKUTWiuQ) from Agilent (an ICP-MS tool manufacturer) to learn about the basic operating principles of an ICP-MS. Briefly, the liquid sample is aerosolized before getting ionized by a plasma. Metals in the solution are then sorted and counted based on their charge/mass ratio. 
 
 When VPD and ICP-MS are combined, it's called VPD-ICP-MS. Note that VPD doesn't necessarily need to use ICP-MS for analysis; alternatives like Atomic Absorption Spectroscopy (AAS) are also common. Similarly, VPD is not the only way to collect samples for ICP-MS; anything from blood to seawater to colloidal space dust can be measured in an ICP-MS.
 
@@ -500,7 +500,7 @@ After fabricating the VPD scanner, you need to control it. The printer runs on G
   - 6_inch_wafer_scan_pre_generated.gcode
 
   The pre-generated routines have the following parameters:
-  - Scan pattern: concentric starting in middle
+  - Scan pattern: concentration starting in middle
   - Droplet volume: 300 uL
   - Scan speed: 175 mm/min
   - Scan height: 200 um
